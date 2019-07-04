@@ -16,8 +16,6 @@ int main(){
     
     n=(max-min)/h;
     
-    cout<<n<<endl;
-    
     double x = 0.;
     double y = 1.;
     
