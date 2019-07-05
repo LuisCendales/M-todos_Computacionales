@@ -7,7 +7,7 @@ x=datos[:,1]
 v=datos[:,2]
 
 plt.figure()
-plt.plot(t,x,c='r')
+plt.plot(t,x,c='b')
 plt.xlabel("t")
 plt.ylabel("x")
 plt.title("Posición vs. Tiempo Resorte sin fricción")
