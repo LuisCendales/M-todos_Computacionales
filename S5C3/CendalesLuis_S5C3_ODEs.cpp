@@ -10,8 +10,8 @@ double D2(double t,double x,double v);
 
 int main(){
     double t = 0.;
-    double tfinal = 15.;
-    double h = 0.00001;
+    double tfinal = 5.;
+    double h = 0.0001;
     double n = (tfinal-t)/h;
     double x = 0.1;
     double v = 0;
@@ -24,7 +24,7 @@ int main(){
     outfile.open("datos.dat");
     for(int i=0;i<n;i++){
         k11 = h*D1(t, x, v);
-        k12 = h*D1(t, x, v);
+        k12 = h*D2(t, x, v);
         k21 = h*D1(t+h*0.5, x+0.5*k11, v+0.5*k12);
         k22 = h*D2(t+h*0.5, x+0.5*k11, v+0.5*k12);
         k31 = h*D1(t+h*0.5, x+0.5*k21, v+0.5*k22);
@@ -52,5 +52,5 @@ double D1(double t,double x,double v){
 double D2(double t,double x,double v){
     double k =300;
     double m =2;
-    return -(k/m)*x;
+    return x*(-k/m);
 }
