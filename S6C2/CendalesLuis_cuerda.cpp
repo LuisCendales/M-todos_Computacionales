@@ -34,24 +34,21 @@ int main(){
             phi_pasado[i]=xlista[i]*(-pendiente)+2*A0;
         }
     }
+        
     
-    outfile1.open("datos1.dat");
-    for(int i=0;i<n;i++){
-        outfile1<<xlista[i]<<" "<<phi_pasado[i]<<endl;
-    }
-    
-    outfile1.close();
 //     Se supone que hasta acá todo está bien
     double r = pow(c*dt/dx,2);
     for(int i=0;i<n;i++){
         phi_presente[i]=phi_pasado[i] + ((r/2)*(phi_pasado[i+1]+phi_pasado[i-1]-2*phi_pasado[i]));
     }
-    outfile2.open("datos2.dat");
+    
+    
+    outfile1.open("datos1.dat");
     for(int i=0;i<n;i++){
-        outfile2<<xlista[i]<<" "<<phi_presente[i]<<endl;
+        outfile1<<xlista[i]<<" "<<phi_pasado[i]<<" "<<phi_presente[i]<<"\n";
     }
     
-    outfile2.close();
+    outfile1.close();
     
 //     for(int i=0;i<n;i++){
     

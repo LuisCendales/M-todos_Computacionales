@@ -4,9 +4,8 @@ import matplotlib.pylab as plt
 datos1=np.genfromtxt("datos1.dat")
 x=datos1[:,0]
 u1=datos1[:,1]
+u2=datos1[:,2]
 
-datos2=np.genfromtxt("datos2.dat")
-u2=datos2[:,1]
 
 plt.figure()
 plt.plot(x,u1,c='b')
