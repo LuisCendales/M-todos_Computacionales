@@ -36,15 +36,22 @@ int main(){
             phi[i]=xlista[i]*(-pendiente)+2*A0;
         }
     }
-    double phi1[n];
+    
+    outfile.open("datos.dat");
+    for(int i=0;i<n;i++){
+        outfile<<xlista[i]<<" "<<phi[i]<<endl;
+    }
+    
+    outfile.close()
+    
     double r = ((c*c)*(dt*dt))/(dx*dx);
     for(int i=0;i<n;i++){
         if(i=0){
-            phi1[i]=(r/2)*(phi[i+1]+phi[i]-2*phi[i]);
+            phi[i]=(r/2)*(phi[i+1]+phi[i]-2*phi[i])+2*phi[i];
         }else if(i=(n-1)){
-            phi1[i]=(r/2)*(phi[i]+phi[i-1]-2*phi[i]);
+            phi[i]=(r/2)*(phi[i]+phi[i-1]-2*phi[i])+2*phi[i];
         }else{
-            phi1[i]=(r/2)*(phi[i+1]+phi[i-1]-2*phi[i]);
+            phi[i]=(r/2)*(phi[i+1]+phi[i-1]-2*phi[i])+2*phi[i];
         }
     }    
     
@@ -52,12 +59,7 @@ int main(){
     
     
     
-    outfile.open("datos.dat");
-    for(int i=0;i<n;i++){
-        outfile<<xlista[i]<<" "<<phi[i]<<endl;
-    }
-    
-    outfile.close();
+    ;
     
     return 0;
 }
