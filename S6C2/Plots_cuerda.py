@@ -1,14 +1,18 @@
 import numpy as np
 import matplotlib.pylab as plt
 
-datos=np.genfromtxt("datos.dat")
-x=datos[:,0]
-u=datos[:,1]
+datos1=np.genfromtxt("datos1.dat")
+x=datos1[:,0]
+u1=datos1[:,1]
+
+datos2=np.genfromtxt("datos2.dat")
+u2=datos2[:,1]
 
 plt.figure()
-plt.plot(x,u)
-plt.xlabel("t")
-plt.ylabel("x")
+plt.plot(x,u1,c='b')
+plt.plot(x,u2,c='r')
+plt.xlabel("x")
+plt.ylabel("phi")
 plt.title("Cuerda inicial")
 plt.grid()
 plt.savefig("plot.png")

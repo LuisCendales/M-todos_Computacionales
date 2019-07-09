@@ -4,14 +4,11 @@
 
 using namespace std;
 
-const double c = 300;
+const double c = 300.0;
 
 int main(){
-    double L = 1.0;
-    double x0 = 0;
-    double dx = 0.05;    
-    int n;
-    n=(L-x0)+1/dx;
+    double L = 1.0, x0 = 0, dx = 0.005;   
+    int n = (L-x0)/dx + 1;
     
     double xlista[n];
     for(int i=0;i<n;i++){
@@ -19,47 +16,45 @@ int main(){
         x0+=dx;
     }
     
-    double tfin = 0.1;
-    double t0 = 0.;
-    double dt= 0.01;
+    double tfin = 0.1, t0 = 0., dt= 0.005;
     double A0=0.01;
     double pendiente=A0/(L/2);
     
-    double phi[n];
-    double phi_new[n];
-    ofstream outfile;
+    double phi_pasado[n];
+    double phi_presente[n];
+    double phi_futuro[n];
+    ofstream outfile1;
+    ofstream outfile2;
+    ofstream outfile3;
     
     for(int i=0;i<n;i++){
         if(i<(n/2)){
-            phi[i]=xlista[i]*pendiente;
+            phi_pasado[i]=xlista[i]*pendiente;
         } else{
-            phi[i]=xlista[i]*(-pendiente)+2*A0;
+            phi_pasado[i]=xlista[i]*(-pendiente)+2*A0;
         }
     }
     
-    outfile.open("datos.dat");
+    outfile1.open("datos1.dat");
     for(int i=0;i<n;i++){
-        outfile<<xlista[i]<<" "<<phi[i]<<endl;
+        outfile1<<xlista[i]<<" "<<phi_pasado[i]<<endl;
     }
     
-    outfile.close()
-    
-    double r = ((c*c)*(dt*dt))/(dx*dx);
+    outfile1.close();
+//     Se supone que hasta acá todo está bien
+    double r = pow(c*dt/dx,2);
     for(int i=0;i<n;i++){
-        if(i=0){
-            phi[i]=(r/2)*(phi[i+1]+phi[i]-2*phi[i])+2*phi[i];
-        }else if(i=(n-1)){
-            phi[i]=(r/2)*(phi[i]+phi[i-1]-2*phi[i])+2*phi[i];
-        }else{
-            phi[i]=(r/2)*(phi[i+1]+phi[i-1]-2*phi[i])+2*phi[i];
-        }
-    }    
+        phi_presente[i]=phi_pasado[i] + ((r/2)*(phi_pasado[i+1]+phi_pasado[i-1]-2*phi_pasado[i]));
+    }
+    outfile2.open("datos2.dat");
+    for(int i=0;i<n;i++){
+        outfile2<<xlista[i]<<" "<<phi_presente[i]<<endl;
+    }
     
+    outfile2.close();
     
+//     for(int i=0;i<n;i++){
     
-    
-    
-    ;
-    
+//     }
     return 0;
 }
