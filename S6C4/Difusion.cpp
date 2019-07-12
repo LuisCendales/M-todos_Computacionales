@@ -13,8 +13,11 @@ int main(){
     double v=0.0001;
     
     double T1[ny][nx];
+    double T1fut[ny][nx];
     double T2[ny][nx];
+    double T2fut[ny][nx];
     double T3[ny][nx];
+    double T3fut[ny][nx];
     ofstream t1a;
     ofstream t1b;
     ofstream t1c;
@@ -28,13 +31,19 @@ int main(){
     for(int j=0;j<ny;j++){                           //inicializo placa
         for(int i=0;i<nx;i++){
             T1[j][i]=50;
+            T1fut[j][i]=50;
             T2[j][i]=50;
+            T2fut[j][i]=50;
             T3[j][i]=50;
+            T3fut[j][i]=50;
             if(j>40 and j<60){
                 if(i>20 and i<40){
                     T1[j][i]=100;
+                    T1fut[j][i]=100;
                     T2[j][i]=100;
+                    T2fut[j][i]=100;
                     T3[j][i]=100;
+                    T3fut[j][i]=100;
                 }
             }
         }
@@ -52,10 +61,15 @@ int main(){
     double rx = (v*dt)/(dx*dx);
     double ry = (v*dt)/(dy*dy);
     
-    for(int t=0;t<nt;t++){
+    for(int t=0;t<nt;t++){                                    //Cerrada
         for(int j=1;j<ny-1; j++){
             for(int i=1;i<nx-1;i++){
-                T1[j][i]=rx*(T1[j+1][i]+T1[j-1][i]-2*T1[j][i]) + ry*(T1[j][i+1]+T1[j][i-1]-2*T1[j][i]) + T1[j][i];
+                T1fut[j][i]=rx*(T1[j+1][i]+T1[j-1][i]-2*T1[j][i]) + ry*(T1[j][i+1]+T1[j][i-1]-2*T1[j][i]) + T1[j][i];
+            }
+        }
+        for(int j=0;j<ny;j++){
+            for(int i=0;i<nx;i++){
+                T1[j][i]=T1fut[j][i];
             }
         }
         if(t*dt==100){
@@ -80,28 +94,49 @@ int main(){
         }
     }
     
+    
+    
     for(int t=0;t<nt;t++){                            //abiertas
         for(int j=0;j<ny; j++){
             for(int i=0;i<nx;i++){
                 if(j>0 and j<(ny-1)){
                     if(i>0 and i<(nx-1)){
-                        T2[j][i]=rx*(T2[j+1][i]+T2[j-1][i]-2*T2[j][i]) + ry*(T2[j][i+1]+T2[j][i-1]-2*T2[j][i]) + T2[j][i];
+                        T2fut[j][i]=rx*(T2[j+1][i]+T2[j-1][i]-2*T2[j][i]) + ry*(T2[j][i+1]+T2[j][i-1]-2*T2[j][i]) + T2[j][i];
                     }
                 }
                 if(j==0){
-                    T2[j][i]=T2[j+1][i];
+                    T2fut[j][i]=T2fut[j+1][i];
                 }
                 if(i==0){
-                    T2[j][i]=T2[j][i+1];
+                    T2fut[j][i]=T2fut[j][i+1];
                 }
                 if(j==ny-1){
-                    T2[j][i]=T2[j-1][i];
+                    T2fut[j][i]=T2fut[j-1][i];
                 }
                 if(i==nx-1){
-                    T2[j][i]=T2[j][i-1];
+                    T2fut[j][i]=T2fut[j][i-1];
+                }
+                if(j==0 and i==0){
+                    T2fut[j][i]=T2fut[j+1][i+1];
+                }
+                if(j==0 and i==nx-1){
+                    T2fut[j][i]=T2fut[j+1][i-1];
+                }
+                if(j==ny-1 and i==0){
+                    T2fut[j][i]=T2fut[j-1][i+1];
+                }
+                if(j==ny-1 and i==nx-1){
+                    T2fut[j][i]=T2fut[j-1][i-1];
                 }
             }
         }
+        
+        for(int j=0;j<ny;j++){
+            for(int i=0;i<nx;i++){
+                T2[j][i]=T2fut[j][i];
+            }
+        }
+        
         if(t*dt==100){
             t2b.open("t2b.dat");
             for(int j=0;j<ny;j++){
@@ -129,23 +164,30 @@ int main(){
             for(int i=0;i<nx;i++){
                 if(j>0 and j<(ny-1)){
                     if(i>0 and i<(nx-1)){
-                        T3[j][i]=rx*(T3[j+1][i]+T3[j-1][i]-2*T3[j][i]) + ry*(T3[j][i+1]+T3[j][i-1]-2*T3[j][i]) + T3[j][i];
+                        T3fut[j][i]=rx*(T3[j+1][i]+T3[j-1][i]-2*T3[j][i]) + ry*(T3[j][i+1]+T3[j][i-1]-2*T3[j][i]) + T3[j][i];
                     }
                 }
                 if(j==0){
-                    T3[j][i]=T3[ny-2][i];
+                    T3fut[j][i]=T3fut[ny-2][i];
                 }
                 if(i==0){
-                    T3[j][i]=T3[j][nx-1];
+                    T3fut[j][i]=T3fut[j][nx-1];
                 }
                 if(j==ny-1){
-                    T3[j][i]=T3[1][i];
+                    T3fut[j][i]=T3fut[1][i];
                 }
                 if(i==nx-1){
-                    T3[j][i]=T3[j][1];
+                    T3fut[j][i]=T3fut[j][1];
                 }
             }
         }
+        
+        for(int j=0;j<ny;j++){
+            for(int i=0;i<nx;i++){
+                T3[j][i]=T3fut[j][i];
+            }
+        }
+        
         if(t*dt==100){
             t3b.open("t3b.dat");
             for(int j=0;j<ny;j++){
