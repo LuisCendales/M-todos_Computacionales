@@ -4,7 +4,7 @@ import matplotlib.pylab as plt
 
 #1) almacene los datos de WDBC.dat. Los contenidos de cada columna estan descritos en WDBC.doc. En la columna de benigno y maligno se cambio en m y b por 1 y 0 (http://ftp.cs.wisc.edu/math-prog/cpo-dataset/machine-learn/cancer/WDBC/)
 
-entrada=np.genfromtxt('WDBC.dat',delimiter=',')
+entrada=np.genfromtxt("WDBC.dat",delimiter=',')
 
 datos=entrada[:,2:]
 muestras,variables=np.shape(datos)
@@ -56,7 +56,7 @@ lista=lista.transpose()
 malignos=[]
 benignos=[]
 for i in range(len(PC1)):
-    if(entrada[i,1]!=0):
+    if(entrada[i,1]==1):
         benignos.append([PC1[i],PC2[i]])
     else:
         malignos.append([PC1[i],PC2[i]])
