@@ -44,7 +44,7 @@ pasos=[100000,100000,100000,1000,100000,500000]
 # Al ejecutar el codigo, este debe generar 6 (o 5) graficas .pdf una para cada vez que se llama a la funcion.
 
 x=np.linspace(-4,4,1000)
-y=mifun(x)
+y=mifun(x)/np.sum(mifun(x)*(x[1]-x[0]))
 
 for i in range(len(pasos)):
     s=sigma[i]
