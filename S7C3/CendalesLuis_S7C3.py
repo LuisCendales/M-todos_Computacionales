@@ -14,11 +14,9 @@ spring=np.genfromtxt("resorte.dat")
 tdata=spring[:,0]
 xdata=spring[:,1]
 
-
 # 2) Implemente un algoritmo que le permita, por medio de estimacion bayesiana de parametros, encontrar los parametros correspondientes a los datos d. Para esto debe:
 
 # 2a.) definir una funcion que reciba los parametros que se busca estimar y los datos de tiempo y retorne el modelo  
-
 
 def x(t,a,gamma,omega):
     return a*np.exp(-gamma*t)*np.cos(omega*t)
@@ -105,7 +103,7 @@ xbest=x(tdata,a,g,o)
 plt.figure()
 plt.scatter(tdata,xdata,s=10,c='r',label="datos")
 plt.plot(tdata,xbest,c='b',label="Modelo")
-plt.title('Modelo Estimación Bayesiana - Resorte')
+plt.title('Modelo de Estimación Bayesiana - Resorte')
 plt.xlabel('$t$')
 plt.ylabel('$Posición$')
 plt.legend()
